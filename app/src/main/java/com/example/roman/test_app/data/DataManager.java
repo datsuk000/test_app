@@ -67,13 +67,9 @@ public class DataManager {
             try {
                 String articleHeadersUrl = URL_HEADERS + category.getCategoryId();
                 String jsonArticleHeaders = HttpHelper.downloadData(articleHeadersUrl);
-                if (jsonArticleHeaders == null) {
-                    return null;
-                } else {
-                    articleHeaders = JsonParser.getHeaderFromJson(jsonArticleHeaders);
-                    mMapOfArticleHeaders.put(category, articleHeaders);
-                    return articleHeaders;
-                }
+                articleHeaders = JsonParser.getHeaderFromJson(jsonArticleHeaders);
+                mMapOfArticleHeaders.put(category, articleHeaders);
+                return articleHeaders;
 
             } catch (IOException e) {
                 e.printStackTrace();
