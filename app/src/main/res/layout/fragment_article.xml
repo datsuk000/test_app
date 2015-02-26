@@ -30,7 +30,8 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -68,7 +69,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/article_subtitle"
             android:gravity="start"
-            android:textSize="16sp"/>
+            android:textSize="16sp"
+            android:layout_marginLeft="4dp"/>
 
         <WebView
             android:layout_width="match_parent"
