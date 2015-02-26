@@ -42,9 +42,7 @@ public class MainActivity extends ActionBarActivity {
         @Override
         protected List<Category> doInBackground(Void... params) {
             return DataManager.getInstance(MainActivity.this).getCategories();
-
         }
-
         @Override
         protected void onPostExecute(List<Category> categoryList) {
             super.onPostExecute(categoryList);

@@ -11,11 +11,11 @@ import com.example.roman.test_app.fragments.HeadersFragment;
 import java.util.List;
 
 public class CategoriesFragmentAdapter extends FragmentStatePagerAdapter {
-    private List<Category> mCategories;
+    private List<Category> mCategoriesList;
 
-    public CategoriesFragmentAdapter(FragmentManager fragmentManager, List<Category> categories) {
+    public CategoriesFragmentAdapter(FragmentManager fragmentManager, List<Category> categoriesList) {
         super(fragmentManager);
-        mCategories = categories;
+        mCategoriesList = categoriesList;
     }
 
     @Override
@@ -25,6 +25,6 @@ public class CategoriesFragmentAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return mCategories.size();
+        return mCategoriesList.size();
     }
 }

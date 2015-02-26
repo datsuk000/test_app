@@ -21,7 +21,7 @@ import com.example.roman.test_app.data.Header;
 import java.util.List;
 
 public class HeadersFragment extends Fragment {
-    private static final String ARGS_CATEGORY_INDEX = "categoryIndex";
+    private static final String CATEGORY = "category";
     private static final String CATEGORY_POSITION = "category_position";
     private static final String ARTICLE_POSITION = "article_position";
     private int mCategoryPosition;
@@ -30,10 +30,10 @@ public class HeadersFragment extends Fragment {
     private Context mContext;
     private TextView mCategoryTextView;
 
-    public static HeadersFragment newInstance(int categoryIndex) {
+    public static HeadersFragment newInstance(int category) {
         HeadersFragment headersFragment = new HeadersFragment();
         Bundle args = new Bundle();
-        args.putInt(ARGS_CATEGORY_INDEX, categoryIndex);
+        args.putInt(CATEGORY, category);
         headersFragment.setArguments(args);
         return headersFragment;
     }
@@ -44,13 +44,13 @@ public class HeadersFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(
                 R.layout.fragment_headers, container, false);
         mContext = getActivity();
-        mCategoryPosition = getArguments().getInt(ARGS_CATEGORY_INDEX);
+        mCategoryPosition = getArguments().getInt(CATEGORY);
         mListView = (ListView) rootView.findViewById(R.id.headers_listView);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int articlePosition, long id) {
                 Intent intent = new Intent(mContext, ArticleActivity.class);
-                intent.putExtra(CATEGORY_POSITION, mCategoryPosition);
+                intent.putExtra(CATEGORY, mCategoryPosition);
                 intent.putExtra(ARTICLE_POSITION, articlePosition);
                 startActivity(intent);
             }
@@ -58,11 +58,11 @@ public class HeadersFragment extends Fragment {
         mCategoryTextView = (TextView) rootView.findViewById(R.id.name_fragment_category);
         mCategory = DataManager.getInstance(getActivity()).getCategories().get(mCategoryPosition);
         mCategoryTextView.setText(mCategory.getCategoryName());
-        new LoadArticleHeadersAsyncTask().execute(mCategory);
+        new LoadHeadersAsyncTask().execute(mCategory);
         return rootView;
     }
 
-    private class LoadArticleHeadersAsyncTask
+    private class LoadHeadersAsyncTask
             extends AsyncTask<Category, Void, List<Header>> {
         @Override
         protected List<Header> doInBackground(Category... params) {

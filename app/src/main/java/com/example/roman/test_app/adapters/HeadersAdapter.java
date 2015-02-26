@@ -15,6 +15,7 @@ import com.koushikdutta.ion.Ion;
 import java.util.List;
 
 public class HeadersAdapter extends ArrayAdapter<Header> {
+    private static final int ITEM_IMAGE_SIZE = 300;
     Context mContext;
     List<Header> mHeaderList;
 
@@ -47,7 +48,7 @@ public class HeadersAdapter extends ArrayAdapter<Header> {
             holder.mThumbHeaderItem.setVisibility(View.GONE);
         } else {
             holder.mThumbHeaderItem.setVisibility(View.VISIBLE);
-            String imageUrl = String.format(header.getLink(), 300,300);
+            String imageUrl = String.format(header.getLink(), ITEM_IMAGE_SIZE, ITEM_IMAGE_SIZE);
             Ion.with(holder.mThumbHeaderItem).load(imageUrl);
         }
         return rowView;

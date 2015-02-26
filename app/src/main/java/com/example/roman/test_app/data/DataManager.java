@@ -8,13 +8,12 @@ import com.example.roman.test_app.utilities.JsonParser;
 import org.json.JSONException;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class DataManager {
-    //instance of singleton
+
     private static final String LOG = "DataManager";
     private static final String URL = "http://figaro.service.yagasp.com/article/";
     private static final String URL_CATEGORIES = "http://figaro.service.yagasp.com/article/categories";
@@ -23,12 +22,12 @@ public class DataManager {
     private static DataManager sInstance;
 
     private List<Category> mCategories;
-    private Map<Category, List<Header>> mMapOfArticleHeaders;
-    private Map<Header, Article> mMapOfArticles;
+    private Map<Category, List<Header>> mCategoryHeadersListMap;
+    private Map<Header, Article> mHeaderArticleMap;
 
     private DataManager(Context context) {
-        mMapOfArticleHeaders = new HashMap<>();
-        mMapOfArticles = new HashMap<>();
+        mCategoryHeadersListMap = new HashMap<>();
+        mHeaderArticleMap = new HashMap<>();
     }
 
     public static synchronized DataManager getInstance(Context context) {
@@ -62,13 +61,13 @@ public class DataManager {
 
     public List<Header> getHeadersOfCategory(Category category) {
         Log.i(LOG, "Starting getHeadersOfCategory");
-        List<Header> articleHeaders = mMapOfArticleHeaders.get(category);
+        List<Header> articleHeaders = mCategoryHeadersListMap.get(category);
         if (articleHeaders == null) {
             try {
                 String articleHeadersUrl = URL_HEADERS + category.getCategoryId();
                 String jsonArticleHeaders = HttpHelper.downloadData(articleHeadersUrl);
                 articleHeaders = JsonParser.getHeaderFromJson(jsonArticleHeaders);
-                mMapOfArticleHeaders.put(category, articleHeaders);
+                mCategoryHeadersListMap.put(category, articleHeaders);
                 return articleHeaders;
 
             } catch (IOException e) {
@@ -85,7 +84,7 @@ public class DataManager {
 
     public Article getArticle(Header header) {
         Log.i(LOG, "Starting getting article");
-        Article article = mMapOfArticles.get(header);
+        Article article = mHeaderArticleMap.get(header);
         if (article == null) {
             try {
                 String articleUrl = URL + header.getHeaderId();
@@ -95,15 +94,17 @@ public class DataManager {
                     return null;
                 } else {
                     article = JsonParser.getArticleFromJson(jsonArticle);
-                    mMapOfArticles.put(header, article);
+                    mHeaderArticleMap.put(header, article);
                 }
                 return article;
             } catch (IOException e) {
                 e.printStackTrace();
+                return null;
             } catch (JSONException e) {
                 return null;
             }
+        } else {
+            return article;
         }
-        return article;
     }
 }

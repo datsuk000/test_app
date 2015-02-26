@@ -35,7 +35,6 @@ public class ArticleFragment extends Fragment {
     private static final String CATEGORY_POSITION = "category_position";
     private static final String ARTICLE_POSITION = "article_position";
     private static final int IMAGE_SIZE = 800;
-    private Context mContext;
     private TextView mArticleTitle;
     private TextView mArticleSubTitle;
     private TextView mArticleAuthor;
@@ -82,7 +81,7 @@ public class ArticleFragment extends Fragment {
     private void setArticleToView(Article article) {
         mArticleTitle.setText(mArticleHeader.getTitle());
         mArticleAuthor.setText(article.getAuthor());
-        Date date = new Date(article.getDate());
+        Date date = new Date(article.getDate() * 1000);
         DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getActivity());
         mArticleDate.setText(", " + dateFormat.format(date).toString());
         if (TextUtils.isEmpty(mArticleHeader.getSubTitle())) {

@@ -5,4 +5,5 @@
     <color name="subtitle_header">#ff696969</color>
     <color name="black">#000000</color>
     <color name="white">#ffffff</color>
+    <color name="line_color">#FFE6E6E6</color>
 </resources>
