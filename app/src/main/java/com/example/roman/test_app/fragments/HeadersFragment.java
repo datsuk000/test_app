@@ -50,7 +50,7 @@ public class HeadersFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int articlePosition, long id) {
                 Intent intent = new Intent(mContext, ArticleActivity.class);
-                intent.putExtra(CATEGORY, mCategoryPosition);
+                intent.putExtra(CATEGORY_POSITION, mCategoryPosition);
                 intent.putExtra(ARTICLE_POSITION, articlePosition);
                 startActivity(intent);
             }
